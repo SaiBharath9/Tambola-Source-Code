@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Registration</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <style type="text/css">
+    input[type=text], select {
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+    input[type=password], select {
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=email], select {
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=number], select {
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+    #btnSignUp {
+    width: 25%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+    #btnFb {
+    width: 12.5%;
+    background-color: rgb(0,0,100);
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+    #btnGoogle {
+    width: 12.5%;
+    background-color: rgb(200,0,0);
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    #btnSignUp:hover {
+    background-color: #45a049;
+}
+
+    #btnFb:hover {
+	background-color: #00f;
+}
+
+    #btnGoogle:hover {
+	background-color: #f00;
+}
+    div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+</style>
+</head>
+<body onload="document.form.id.focus();">
+        <div>
+		<center>
+		<h2 >Register here...</h2>
+		<form action="SignUp" id="Registration" method="post" >
+				
+				
+                    <input type="text" id="txtUname" name="UserName" pattern="[A-Za-z]{5,20}" title="length should be 5 to 20, numbers not allowed" size=20 placeholder="UserName" required=""/><br>
+				
+				
+                    <input type="email" id="txtEmail" name="Email" placeholder="Email:someone@example.com" required=""/><br>
+				
+                    <input type="number" id="txtMobile" name="MNumber" pattern="[0-9]{10}" title="number should contain 10 digits" placeholder="10 digit number" required=""/><br>
+                                            
+                    <input type="password" id="txtPassword" name="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="@,# are allowed as specia characters" placeholder="YourPassword" required="" /><br>
+                    
+                    <input type="checkbox" onchange="document.getElementById('txtPassword').type = this.checked ? 'text' : 'password'"> Show Password<br><br>
+								
+                    <input type="password" id="txtCnfPassword" name="CnfPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="@,# are allowed as specia characters" placeholder="ConfirmPassword" required="" /><br>
+                    
+                    <input type="checkbox" onchange="document.getElementById('txtCnfPassword').type = this.checked ? 'text' : 'password'"> Show Confirm Password<br><br>
+				
+                    <input type="text" id="txtCity" name="Location" placeholder="YourCity" required="" /><br>
+                    
+                    <input type="submit" id="btnSignUp" value="SignUp" onclick="" /><br>
+                    
+                    <p> (OR) </p>
+                    
+                    <input type="submit" id="btnFb" value="SignUp With FB" />	
+                    
+                    <input type="submit" id="btnGoogle" value="SignUp with Google" />			
+		</form>
+		</center>
+        </div>
+</body>
+</html>

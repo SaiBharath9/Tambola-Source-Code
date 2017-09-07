@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+<head>
+    <title>Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <style>
+        div {
+            text-align: center;
+        }
+
+        .bigNumberDisplay {
+            font-size: 3em;
+        }
+
+        .numbersTable {
+            font-size: 1.6em;
+        }
+
+        table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        table, tr, td {
+            border-collapse: collapse;
+            border: solid 1px #999;
+        }
+
+        td {
+            min-width: 50px;
+            color: #fff;
+        }
+
+            td.selected {
+                color: #ff4000;
+            }
+
+        #lotto td {
+            font-family: arial;
+            color: #333;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            border: 2px solid #ddc;
+            background-color: #eee;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                var bingo = {
+                    selectedNumbers: [],
+                    generateRandom: function () {
+                        var min = 1;
+                        var max = 90;
+                        var random = Math.floor(Math.random() * (max - min + 1)) + min;
+                        return random;
+                    },
+                    generateNextRandom: function () {
+                        if (bingo.selectedNumbers.length > 89) {
+                            //alert("All numbers Existed");
+                            return 0;
+                        }
+                        var random = bingo.generateRandom();
+                        while ($.inArray(random, bingo.selectedNumbers) > -1) {
+                            random = bingo.generateRandom();
+                        }
+                        bingo.selectedNumbers.push(random);
+                        return random;
+                    }
+                };
+                $('#tblNumbers td').each(function () {
+                    var concatClass = this.cellIndex + "" + this.parentNode.rowIndex;
+                    var numberString = parseInt(concatClass, 10).toString();
+                    $(this).addClass("cell" + numberString).text(numberString);
+                });
+                setInterval(function () {
+
+                    var random = bingo.generateNextRandom().toString();
+                    $('.bigNumberDisplay span').text(random);
+                    $('#tblNumbers td.cell' + random).addClass('selected');
+
+                }, 5000);
+                window.onbeforeunload = function (e) {
+                    e = e || window.event;
+                    var returnString = 'Are you sure?';
+                    if (e) {
+                        e.returnValue = returnString;
+                    }
+                    return returnString;
+                };
+            });
+            $(document).on('click', 'input[type=button]', function () {
+                var number = parseInt($(this).val());
+                if (number == parseInt($('.bigNumberDisplay span').text())) {
+                    $(this).parent().css('background-color', 'green');
+                }
+                else {
+                    $("#tblNumbers").find("td").each(function (index, element) {
+                        var curNumber;
+                        if ($(this).hasClass('selected'))
+                            curNumber = parseInt($(this).html());
+                        if (curNumber == number) {
+                            $('input[type="button"][value=' + number + ']').parent().css('background-color', 'green');
+                        }
+                    });
+                }
+                
+                var ticketcount = 0, selectedcount=0;
+                //Final check
+                    $("#lotto").find("td").each(function (index, element) {
+                        var val=$(this).find('.normal').val();
+                        if (parseInt(val) > 0)
+                            ticketcount++;
+                        var color =$(this).css("background-color");
+                        if (color=="rgb(0, 128, 0)" || color=="green")
+                            selectedcount++;
+                    });
+                    //alert(ticketcount);
+                    //alert(selectedcount);
+                    if (ticketcount == selectedcount) {
+                            alert('Completed....');
+                        }
+            });
+        });
+
+    </script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var rows = 3;
+            var cols = 9;
+            var ticket = new Array();
+            var colcou = new Array();
+            var numbers = new Array();
+            var row = 0, num = 0, val = 0;
+            for (var i = 0; i < rows; i++) {
+                ticket[i] = new Array();
+                for (var j = 0; j < cols; j++) {
+                    ticket[i][j] = 0;
+                }
+            }
+            for (var j = 0; j < cols; j++) {
+                colcou[j] = 0;
+            }
+            for (var j = 0; j < 90; j++) {
+                numbers[j] = 0;
+            }
+            while (num < 15) {
+                var col = Math.round(Math.random() * 9);
+                val = col * 10 + Math.round(Math.random() * 10);
+                //  alert(val);
+                if (ticket[row][col] == 0 && colcou[col] < 2 && val != 0 && numbers[val] == 0) {
+                    numbers[val] = 1;
+                    ticket[row][col] = val;
+                    colcou[col]++;
+                    if (++num % 5 == 0) row++;
+                }
+            }
+            for (var i = 0; i < 3; i++) {
+                for (var j = 0; j < 9; j++) {
+                    var value = ticket[i][j];
+                    if (value != 0) {
+                        var v = Math.floor(value / 10);
+                        var id1 = "#id" + i + v;
+                        var id = "id" + i + Math.floor(value / 10);
+                        document.getElementById(id).disabled = false;
+                        document.getElementById(id).value = value;
+                    }
+                }
+            }
+        }
+ </script>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <h3>Tambola Number Generator</h3>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-1" style="color: green;">
+                <div class="bigNumberDisplay">
+                    <span>0</span>
+                </div>
+                <h4>Current Number</h4>
+            </div>
+            <div class="col-sm-7">
+                <div class="numbersTable">
+                    <table id="tblNumbers">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-2">
+            </div>
+        </div>
+        <div class="row" style="padding-top: 20px;">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm-7">
+                <h4>Ticket</h4>
+                <table border="1" id="lotto">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="button" value="" class="normal" id="id00" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id01" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id02" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id03" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id04" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id05" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id06" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id07" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id08" disabled>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="button" value="" class="normal" id="id10" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id11" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id12" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id13" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id14" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id15" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id16" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id17" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id18" disabled>&nbsp;</td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="button" value="" class="normal" id="id20" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id21" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id22" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id23" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id24" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id25" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id26" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id27" disabled>&nbsp;</td>
+                            <td>
+                                <input type="button" value="" class="normal" id="id28" disabled>&nbsp;</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-2">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

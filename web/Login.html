@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SignIn</title>
+	<link rel='shortcut icon' type='image/x-icon' href='images/index.jpg'/>
+	<style>
+input[type=text], select {
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=email], select {
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=password], select {
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#btnSignIn {
+    width: 25%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#btnFb {
+    width: 12.5%;
+    background-color: rgb(0,0,100);
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#btnGoogle {
+    width: 12.5%;
+    background-color: rgb(200,0,0);
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#btnSignUp {
+    width: 25%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#btnSignIn:hover {
+    background-color: #45a049;
+}
+
+#btnFb:hover {
+	background-color: #00f;
+}
+
+#btnGoogle:hover {
+	background-color: #f00;
+}
+#btnSignUp:hover {
+    background-color: #45a049;
+}
+div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+</style>
+</head>
+<body>
+	<div>
+	<center>
+		<h2>Enter following credentials</h2>
+		<form action="Login" method="post">
+			<input type="email" id="txtEmail"  name="Email" placeholder="Eneter your Email"><br>
+								
+			<input type="password" id="txtPassword" name="Password" placeholder="YourPassword"><br>
+
+			<input type="submit" id="btnSignIn" value="LogIn" onclick=""><br>
+			<p> (OR) </p>
+			<input type="submit" id="btnFb" value="LogIn With FB" >	
+			<input type="submit" id="btnGoogle" value="LogIn with Google" ><br>
+			<br>
+			
+			<a id="btnSignUp" href="Registration.html">New User, Click here</a>
+		</form>
+	</center>
+	</div>
+</body>
+</html>
